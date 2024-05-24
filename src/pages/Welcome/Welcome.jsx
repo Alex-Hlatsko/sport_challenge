@@ -12,37 +12,33 @@ const Welcome = () => {
 
   // Get Users From Database and check if the user is in the database
   const [usersData, getUsers] = useState([]);
-    useEffect(() => {
-      const q = query(collection(db, "users"))
-      const unsub = onSnapshot(q, (querySnapshot) => {
-        let usersArray = []
-        querySnapshot.forEach((doc) => {
-          usersArray.push({...doc, id: doc.id})
-        })
-        getUsers(usersArray)
-      })
-    return () => unsub()
-    },[]);
-
-    // If the user doesn't exist, then we enter it into the database
-    // If there is a user, then skip
-    const login = async() => {
-      const provider = new firebase.auth.GoogleAuthProvider()
-      const {user} = await auth.signInWithPopup(provider)
-      
-      if (usersData.find(u => u.id === user.uid) !== undefined){
-        return ''
-      } else{
-        db.collection('users').doc(user.uid).set({
-          name: user.displayName,
-          email: user.email,
-          photoURL: user.photoURL,
-          uid: user.uid,
-          finishedTasks: 0
-        })
-      }
-      
+  const login = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    await auth.signInWithRedirect(provider);
   }
+  
+  // Ваш useEffect будет выглядеть так:
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        // Пользователь аутентифицирован
+        // Проверяем, есть ли он в базе данных
+        const userSnapshot = await db.collection('users').doc(user.uid).get();
+        if (!userSnapshot.exists) {
+          // Если пользователя нет в базе данных, добавляем его
+          await db.collection('users').doc(user.uid).set({
+            name: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            uid: user.uid,
+            finishedTasks: 0
+          });
+        }
+      }
+    });
+    
+    return unsubscribe;
+  }, []);
   return (
     <>
     <div className="welcome w-full h-screen flex items-center">
