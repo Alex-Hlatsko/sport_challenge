@@ -1,0 +1,12 @@
+form{
+    color: #fff;
+}
+form label{
+    font-weight: bold;
+}
+form textarea{
+    background-color: #1d2a5d;
+    border-radius: 2px;
+    border: 2px solid #4866d3;
+    padding: 1rem 0.5rem;
+}

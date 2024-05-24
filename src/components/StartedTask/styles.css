@@ -1,0 +1,33 @@
+.task{
+    background-color: #1d2a5d;
+    border-radius: 2px;
+}
+.task_title{
+    font-size: 1.5rem;
+}
+.task_desc{
+    font-size: 1rem;
+}
+.task_mail{
+    font-size: 0.8rem;
+}
+.task_icon{
+    color: #4866d3;
+}
+.top_task{
+    text-align: center;
+    color: #4866d3;
+    font-weight: bold;
+    border-bottom: 2px solid #4866d3;
+}
+@media only screen and (max-width: 800px) {
+    .task_desc{
+        font-size: 0.8rem;
+    }
+    .task_title{
+        font-size: 1rem;
+    }
+    .task_mail{
+        font-size: 0.4rem;
+    }
+}
