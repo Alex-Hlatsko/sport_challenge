@@ -1,17 +1,17 @@
 import React, { useContext } from 'react'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import './styles.css'
 
 //Import All For Firebase
 import firebase from 'firebase/compat/app'
-import { collection, onSnapshot, query } from 'firebase/firestore'
+// import { collection, onSnapshot, query } from 'firebase/firestore'
 import { Context, db } from '../../index'
 
 const Welcome = () => {
   const {auth} = useContext(Context)
 
   // Get Users From Database and check if the user is in the database
-  const [usersData, getUsers] = useState([]);
+  // const [usersData, getUsers] = useState([]);
   const login = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
     await auth.signInWithRedirect(provider);
@@ -37,8 +37,9 @@ const Welcome = () => {
       }
     });
     
-    return unsubscribe;
-  }, []);
+    return () => unsubscribe();
+  }, [auth]); // Добавляем auth в массив зависимостей, чтобы предотвратить предупреждение
+  
   return (
     <>
     <div className="welcome w-full h-screen flex items-center">
