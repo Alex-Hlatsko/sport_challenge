@@ -32,7 +32,7 @@ function App() {
           <Route path="/addtask" element={<AddTask user={user}/>} />
           <Route path="/signout" element={<Signout user={user}/>} />
           <Route path="/loading" element={<LoadingPage/>} />
-          <Route path="*" element={<Navigate to="/home"/>}/>
+          <Route path="*" element={<Navigate to="/"/>}/>
         </Route>
       </Routes>
     )
