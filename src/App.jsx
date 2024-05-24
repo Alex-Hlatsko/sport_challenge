@@ -32,7 +32,7 @@ function App() {
           <Route path="/addtask" element={<AddTask user={user}/>} />
           <Route path="/signout" element={<Signout user={user}/>} />
           <Route path="/loading" element={<LoadingPage/>} />
-          <Route path="*" element={<Navigate to="/"/>}/>
+          <Route path="*" element={<Navigate to="/home"/>}/>
         </Route>
       </Routes>
     )
@@ -41,8 +41,8 @@ function App() {
     :
     (
       <Routes>
-        <Route path="/" element={<Welcome/>} />
-        <Route path="*" element={<Navigate to="/"/>}/>
+        <Route path="/welcome" element={<Welcome/>} />
+        <Route path="*" element={<Navigate to="/welcome"/>}/>
       </Routes>
     )}
 export default App;
